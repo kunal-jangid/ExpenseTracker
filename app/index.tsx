@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Text, useTheme, Card, Avatar, Button, IconButton } from 'react-native-paper';
 import { useAppStore } from '../src/store/appStore';
-import * as Notifications from 'expo-notifications';
-import { setupNotificationListener, registerForPushNotificationsAsync } from '../src/services/notificationService';
+import { setupNotificationListener, registerForPushNotificationsAsync, simulateBankSMS } from '../src/services/notificationService';
 
 export default function Dashboard() {
     const theme = useTheme();
@@ -28,14 +27,7 @@ export default function Dashboard() {
     }, [transactions]);
 
     const simulateNotification = async () => {
-        // Fire a local notification to simulate an incoming bank SMS
-        await Notifications.scheduleNotificationAsync({
-            content: {
-                title: "Bank Alert!",
-                body: "Paid ₹ 850 to Zomato via UPI on 25 Feb.",
-            },
-            trigger: null, // trigger immediately
-        });
+        await simulateBankSMS();
     };
 
     const percentageSpent = Math.min((totalSpent / budgetLimit) * 100, 100);
