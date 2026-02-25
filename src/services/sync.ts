@@ -27,6 +27,7 @@ export async function syncTransactionToSheet(transaction: ParsedTransaction): Pr
                 receiver: transaction.receiver,
                 category: transaction.category,
                 raw_text: transaction.originalText,
+                token: process.env.EXPO_PUBLIC_SECRET_TOKEN,
             }),
         };
 
